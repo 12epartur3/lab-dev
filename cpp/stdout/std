@@ -1,0 +1,55 @@
+cout 0
+printf 0
+stderr printf 0
+stdout printf 0
+cout 1
+printf 1
+stderr printf 1
+stdout printf 1
+cout 2
+printf 2
+stderr printf 2
+stdout printf 2
+cout 3
+printf 3
+stderr printf 3
+stdout printf 3
+cout 4
+printf 4
+stderr printf 4
+stdout printf 4
+cout 5
+printf 5
+stderr printf 5
+stdout printf 5
+cout 6
+printf 6
+stderr printf 6
+stdout printf 6
+cout 7
+printf 7
+stderr printf 7
+stdout printf 7
+cout 8
+printf 8
+stderr printf 8
+stdout printf 8
+cout 9
+printf 9
+stderr printf 9
+stdout printf 9
+cout 10
+printf 10
+stderr printf 10
+stdout printf 10
+cout 11
+printf 11
+stderr printf 11
+stdout printf 11
+cout 12
+printf 12
+stderr printf 12
+stdout printf 12
+cout 13
+printf 13
+stderr printf 13
