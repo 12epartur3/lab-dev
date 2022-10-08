@@ -22,7 +22,7 @@ Trie Source Code
 ```cpp
 Trie T;
 T.Print();
-```
+
 (root)
     └---(B)  
         └---(r)  
@@ -36,3 +36,5 @@ T.Print();
         |       └---(a)  
         |           └---(n,1)  
         └---(e,1)   
+```
+
