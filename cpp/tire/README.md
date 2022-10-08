@@ -9,7 +9,7 @@ Trie Source Code
 
 * 编译方式|Build  
  ```cpp
-  * g++ char_trie.cpp 
+ g++ char_trie.cpp 
  ```
 -------
 
