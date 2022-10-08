@@ -14,8 +14,8 @@ Trie Source Code
 -------
 
 * 使用方式|Tutorial  
-  * 查看main函数  
-  * check the main() function
+  * 查看main函数和头文件注释  
+  * check the main() function and header file comments
 
 -------
 * 查看树|View the tree
