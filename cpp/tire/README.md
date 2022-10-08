@@ -22,6 +22,9 @@ Trie Source Code
 ```cpp
 Trie T;
 T.Print();
+```
+
+```cpp
 (root)
     └---(B)
     |   └---(r)
