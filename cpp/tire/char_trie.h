@@ -40,12 +40,12 @@ public:
 		root_->char_ = "root";
         }
         void Insert(const std::string& word);         // Build the trie by @word
-        bool Search(const std::string& word);         // Some word in the tire perfect match with @word
-        bool StartWith(const std::string& word);      // Some word in the tire start match with @word
-        bool PrefixInclude(const std::string& word);  // Some word in the tire match with @word`s prefix or entire @word
-        bool SubInclude(const std::string& word);     // Some word in the tire match with @word and @word`s subword 
-	void PrintLevel();
-	void Print();
+        bool Search(const std::string& word);         // Some word in the trie perfect match with @word
+        bool StartWith(const std::string& word);      // Some word in the trie start match with @word
+        bool PrefixInclude(const std::string& word);  // Some word in the trie match with @word`s prefix or entrie @word
+        bool SubInclude(const std::string& word);     // Some word in the trie match with @word and @word`s subword 
+	void PrintLevel();			      // Print the trie	
+	void Print();				      // Print the trie in a human-readable format	
 private:
         std::shared_ptr<TreeNode> root_;
 	void PrintTrie(std::shared_ptr<TreeNode> node, std::string start, bool last_child);

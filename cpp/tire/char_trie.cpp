@@ -108,7 +108,9 @@ void Trie::Print() {
 }
 void Trie::PrintTrie(std::shared_ptr<TreeNode> node, std::string start, bool last_child) {
 	if(node == NULL) return;
-	std::cout << start + "└---";			
+	if(node != root_) {
+		std::cout << start + "└---";			
+	}
 	if(node->is_word_) std::cout << "(" << node->char_ <<","<< node->is_word_ << ")\n";
 	else std::cout << "(" << node->char_ <<")\n";
 	int i = 0;
@@ -160,6 +162,5 @@ int main() {
 
 	std::cout << "T.SubInclude(Super Yuanye) =  "<< T.SubInclude("Super Yuanye") << '\n';
 	std::cout << "T.SubInclude(Super Benman) =  "<< T.SubInclude("Super Benman") << '\n';
-	//T.Print();
 }
 
