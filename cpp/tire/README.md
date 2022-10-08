@@ -8,13 +8,11 @@ Trie Source Code
 -------
 
 编译方式|Build
-===
 >g++ char_trie.cpp 
 
 -------
 
 使用方式|Tutorial
-===
 >查看main函数  
 >check the main() function
 
