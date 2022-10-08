@@ -72,17 +72,17 @@ bool Trie::SubInclude(const std::string& word) {
 	return false;
 }
 
-void Trie::PrintLevel() {
-	std::vector<std::vector<std::shared_ptr<TreeNode>>> node_level;
+void Trie::PrintLayered() {
+	std::vector<std::vector<std::shared_ptr<TreeNode>>> node_layer;
 	std::list<std::shared_ptr<TreeNode>> node_list;
 	node_list.push_back(root_);
 	std::ostringstream oss;
 	while(!node_list.empty()) {
-		node_level.push_back(std::vector<std::shared_ptr<TreeNode>>{});
+		node_layer.push_back(std::vector<std::shared_ptr<TreeNode>>{});
 		int size = node_list.size();
 		for(int i = 0; i < size; i++) {
 			const std::shared_ptr<TreeNode> & sptr = node_list.front();
-			node_level.back().push_back(sptr);
+			node_layer.back().push_back(sptr);
 			for(const auto p : sptr->child) {
 				node_list.push_back(p.second);
 			}
@@ -90,12 +90,12 @@ void Trie::PrintLevel() {
 			
 		}
 	}
-	for(int i = 0; i < node_level.size(); i++) {
-		std::vector<std::shared_ptr<TreeNode>>& level = node_level[i];
-		for(int j = 0; j < level.size(); j++) {
-                        const std::shared_ptr<TreeNode> & sptr = level[j];
+	for(int i = 0; i < node_layer.size(); i++) {
+		std::vector<std::shared_ptr<TreeNode>>& layer = node_layer[i];
+		for(int j = 0; j < layer.size(); j++) {
+                        const std::shared_ptr<TreeNode> & sptr = layer[j];
 			oss << "(" << sptr->char_ <<", "<< sptr->is_word_ << ")";
-			if(j == level.size() - 1) oss << "\n";
+			if(j == layer.size() - 1) oss << "\n";
 			else oss << " ";
                 }
 	}
@@ -148,6 +148,7 @@ int main() {
 	T.Insert("Bryan");
 	T.Insert("Bradford");
 	T.Print();
+	T.PrintLayered();
 	std::cout << "T.Search(Jay) =  "<< T.Search("Jay") << '\n';
 	std::cout << "T.Search(Yuanye) =  "<< T.Search("Yuanye") << '\n';
 	std::cout << "T.Search(Yuanye2) =  "<< T.Search("Yuanye2") << '\n';

@@ -44,7 +44,7 @@ public:
         bool StartWith(const std::string& word);      // Some word in the trie start match with @word
         bool PrefixInclude(const std::string& word);  // Some word in the trie match with @word`s prefix or entrie @word
         bool SubInclude(const std::string& word);     // Some word in the trie match with @word and @word`s subword 
-	void PrintLevel();			      // Print the trie	
+	void PrintLayered();			      // Print the trie	in layered
 	void Print();				      // Print the trie in a human-readable format	
 private:
         std::shared_ptr<TreeNode> root_;
