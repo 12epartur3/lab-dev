@@ -8,7 +8,7 @@ Trie Source Code
 -------
 
 * 编译方式|Build  
- ```cpp
+ ```bash
  g++ char_trie.cpp 
  ```
 -------
@@ -18,3 +18,9 @@ Trie Source Code
   * check the main() function
 
 -------
+* 查看树|View the tree
+```cpp
+Trie T;
+T.Print();
+```
+
