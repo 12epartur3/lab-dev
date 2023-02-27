@@ -2,16 +2,19 @@
 #include <sstream>
 #include <list>
 #include <vector>
+#include <pthread.h>
 
 void Trie::Insert(const std::string& word) {
         if(word.empty()) return;
+	std::unique_lock lock(wr_lock_);
+
 	std::shared_ptr<TreeNode> node = root_;
 	std::unordered_map<std::string, std::shared_ptr<TreeNode>>::iterator it;
 	for(const char& c: word) {
 		const std::string c_str(1, c);
-		it = node->child.find(c_str);
-		if(it == node->child.end()) {
-			node = node->child.emplace(c_str, std::make_shared<TreeNode>(c_str)).first->second;	
+		it = node->child_.find(c_str);
+		if(it == node->child_.end()) {
+			node = node->child_.emplace(c_str, std::make_shared<TreeNode>(c_str)).first->second;	
 		} else {
 			node = it->second;	
 		}
@@ -23,12 +26,14 @@ void Trie::Insert(const std::string& word) {
 
 bool Trie::Search(const std::string& word) {
 	if(word.empty()) return false;
+	std::shared_lock lock(wr_lock_);
+
         std::shared_ptr<TreeNode> node = root_;
 	std::unordered_map<std::string, std::shared_ptr<TreeNode>>::iterator it;
 	for(const char& c: word) {
 		const std::string c_str(1, c);
-		it = node->child.find(c_str);
-		if(it == node->child.end()) return false;	
+		it = node->child_.find(c_str);
+		if(it == node->child_.end()) return false;	
 		node = it->second;
 	}
 	return node->is_word_;
@@ -36,12 +41,14 @@ bool Trie::Search(const std::string& word) {
 
 bool Trie::StartWith(const std::string& word) {
 	if(word.empty()) return false;
+	std::shared_lock lock(wr_lock_);
+
 	std::shared_ptr<TreeNode> node = root_;
 	std::unordered_map<std::string, std::shared_ptr<TreeNode>>::iterator it;
 	for(const char& c: word) {
                 const std::string c_str(1, c);
-		it = node->child.find(c_str);
-                if(it == node->child.end()) return false;
+		it = node->child_.find(c_str);
+                if(it == node->child_.end()) return false;
                 node = it->second;
         }
         return true;
@@ -49,12 +56,14 @@ bool Trie::StartWith(const std::string& word) {
 
 bool Trie::PrefixInclude(const std::string& word) {
 	if(word.empty()) return false;
+	std::shared_lock lock(wr_lock_);
+
         std::shared_ptr<TreeNode> node = root_;
         std::unordered_map<std::string, std::shared_ptr<TreeNode>>::iterator it;
 	for(const char& c: word) {
                 const std::string c_str(1, c);
-		it = node->child.find(c_str);
-                if(it == node->child.end()) return false;
+		it = node->child_.find(c_str);
+                if(it == node->child_.end()) return false;
                 node = it->second;
 		if(node->is_word_) return true;
         }
@@ -63,7 +72,7 @@ bool Trie::PrefixInclude(const std::string& word) {
 
 bool Trie::SubInclude(const std::string& word) {
 	if(word.empty()) return false;
-        std::shared_ptr<TreeNode> node = root_;
+
 	for(int i = 0; i < word.size(); i++) {
 		const std::string sub_str = word.substr(i, word.size() - i);
 		//std::cout<<"sub_str = " << sub_str << '\n';
@@ -73,6 +82,8 @@ bool Trie::SubInclude(const std::string& word) {
 }
 
 void Trie::PrintLayered() {
+        std::shared_ptr<TreeNode> node = root_;
+
 	std::vector<std::vector<std::shared_ptr<TreeNode>>> node_layer;
 	std::list<std::shared_ptr<TreeNode>> node_list;
 	node_list.push_back(root_);
@@ -83,7 +94,7 @@ void Trie::PrintLayered() {
 		for(int i = 0; i < size; i++) {
 			const std::shared_ptr<TreeNode> & sptr = node_list.front();
 			node_layer.back().push_back(sptr);
-			for(const auto p : sptr->child) {
+			for(const auto p : sptr->child_) {
 				node_list.push_back(p.second);
 			}
 			node_list.pop_front();
@@ -103,9 +114,12 @@ void Trie::PrintLayered() {
 	return;
 }
 
-void Trie::Print() {
+void Trie::PrintTree() {
+        std::shared_ptr<TreeNode> node = root_;
+
 	PrintTrie(root_, "", true);
 }
+
 void Trie::PrintTrie(std::shared_ptr<TreeNode> node, std::string start, bool last_child) {
 	if(node == NULL) return;
 	if(node != root_) {
@@ -114,20 +128,105 @@ void Trie::PrintTrie(std::shared_ptr<TreeNode> node, std::string start, bool las
 	if(node->is_word_) std::cout << "(" << node->char_ <<","<< node->is_word_ << ")\n";
 	else std::cout << "(" << node->char_ <<")\n";
 	int i = 0;
-	for(auto const p : node->child) {
+	for(auto const p : node->child_) {
 		std::string space = "    ";
 		if(last_child == false) space = "|   ";
-		if(i != node->child.size() - 1)PrintTrie(p.second, start + space, false);
+		if(i != node->child_.size() - 1)PrintTrie(p.second, start + space, false);
 		else PrintTrie(p.second, start + space, true);
 		i++;
 	}
 	return;
 }
 
+template<typename data_type>
+std::shared_ptr<TreeDataNode<data_type>> DataTrie<data_type>::Insert(const std::string& word) {
+	if(word.empty()) return NULL;
 
+        std::shared_ptr<TreeDataNode<data_type>> node = root_;
+        typename std::unordered_map<std::string, std::shared_ptr<TreeDataNode<data_type>>>::iterator it;
+        for(const char& c: word) {
+                const std::string c_str(1, c);
+                it = node->child_.find(c_str);
+                if(it == node->child_.end()) {
+                        node = node->child_.emplace(c_str, std::make_shared<TreeDataNode<data_type>>(c_str)).first->second;
+                } else {
+                        node = it->second;
+                }
+        }
+        node->is_word_ = true;
+        return node;
+}
 
+template<typename data_type>
+std::shared_ptr<const TreeDataNode<data_type>> DataTrie<data_type>::Search(const std::string& word) {
+	if(word.empty()) return NULL;
 
+        std::shared_ptr<TreeDataNode<data_type>> node = root_;
+        typename std::unordered_map<std::string, std::shared_ptr<TreeDataNode<data_type>>>::iterator it;
+        for(const char& c: word) {
+                const std::string c_str(1, c);
+                it = node->child_.find(c_str);
+                if(it == node->child_.end()) return NULL;
+                node = it->second;
+        }
+        return node->is_word_ ? node:NULL;
+}
 
+template<typename data_type>
+std::shared_ptr<const TreeDataNode<data_type>> DataTrie<data_type>::PrefixInclude(const std::string& word) {
+	if(word.empty()) return false;
+
+        std::shared_ptr<TreeDataNode<data_type>> node = root_;
+        typename std::unordered_map<std::string, std::shared_ptr<TreeDataNode<data_type>>>::iterator it;
+	for(const char& c: word) {
+                const std::string c_str(1, c);
+		it = node->child_.find(c_str);
+                if(it == node->child_.end()) return NULL;
+                node = it->second;
+		if(node->is_word_) return node;
+        }
+        return node->is_word_ ? node:NULL;
+}
+
+template<typename data_type>
+std::shared_ptr<const TreeDataNode<data_type>> DataTrie<data_type>::SubInclude(const std::string& word) {
+	if(word.empty()) return NULL;
+
+	std::shared_ptr<TreeDataNode<data_type>> node = NULL;
+	for(int i = 0; i < word.size(); i++) {
+		const std::string sub_str = word.substr(i, word.size() - i);
+		//std::cout<<"sub_str = " << sub_str << '\n';
+		node = PrefixInclude(sub_str);
+		if(node) return node;
+	}
+	return NULL;
+}
+
+template<typename data_type>
+void DataTrie<data_type>::PrintTree() {
+        std::shared_ptr<TreeDataNode<data_type>> node = root_;
+
+	PrintTrie(root_, "", true);
+}
+
+template<typename data_type>
+void DataTrie<data_type>::PrintTrie(std::shared_ptr<TreeDataNode<data_type>> node, std::string start, bool last_child) {
+	if(node == NULL) return;
+	if(node != root_) {
+		std::cout << start + "└---";			
+	}
+	if(node->is_word_) std::cout << "(" << node->char_ <<","<< node->is_word_ << ")\n";
+	else std::cout << "(" << node->char_ <<")\n";
+	int i = 0;
+	for(auto const p : node->child_) {
+		std::string space = "    ";
+		if(last_child == false) space = "|   ";
+		if(i != node->child_.size() - 1)PrintTrie(p.second, start + space, false);
+		else PrintTrie(p.second, start + space, true);
+		i++;
+	}
+	return;
+}
 
 int main() {
 	std::unordered_map<std::string, std::shared_ptr<TreeNode>> test;
@@ -136,6 +235,7 @@ int main() {
 	p1.first->second->char_ = "Yuanye3";
 	//std::cout<<"p1.second = " << p1.second <<" p1.first = " << p1.first->second->char_ << '\n';
 	//std::cout<<"p2.second = " << p2.second <<" p2.first = " << p2.first->second->char_ <<'\n';
+	std::cout << std::boolalpha;
 	Trie T;
 	T.Insert("Jay");
 	T.Insert("Yuanye");
@@ -147,7 +247,7 @@ int main() {
 	T.Insert("Ben");
 	T.Insert("Bryan");
 	T.Insert("Bradford");
-	T.Print();
+	T.PrintTree();
 	T.PrintLayered();
 	std::cout << "T.Search(Jay) =  "<< T.Search("Jay") << '\n';
 	std::cout << "T.Search(Yuanye) =  "<< T.Search("Yuanye") << '\n';

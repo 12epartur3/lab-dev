@@ -1,0 +1,143 @@
+sizeof(Context) = 408
+Item operator new call malloc, item_list_ size = 0
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+Item operator new call pop_front, item_list_ size = 1
+Item constructor call
+Context constructor call
+Context destructor call
+Item destructor call
+Item operator delete call push_back, item_list_ size = 1
+
+elapsed time: 0ms
+end main
