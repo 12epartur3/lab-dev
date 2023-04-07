@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-int N = 2;
+int N = 1;
 pthread_attr_t attr;
 pthread_key_t key;
 

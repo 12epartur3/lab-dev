@@ -14,6 +14,8 @@ int main() {
 	f->c[0] = '1';
 	//flexible_t f;
 	//f.a = 10;
-	//std::cout << "f.a = " << f.a <<'\n';
+	std::cout << "f.a = " << f->a <<'\n';
 	//f.c[0] = '1';
+	std::cout << "f.c[0] = " << f->c[0] <<'\n';
+	std::cout << sizeof(*f) << '\n';
 }
