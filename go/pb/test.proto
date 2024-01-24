@@ -1,0 +1,28 @@
+syntax = "proto2";
+package test_proto;
+
+option go_package = "yy/myproto";
+
+
+//---- EvaluationProject models ----
+
+message EvaluationProject {
+  // main fields
+  optional uint64 id = 1;
+  optional uint32 status = 2; // refer to ProjectStatus
+  optional int64 ctime = 3;
+  optional uint64 utime = 4;
+  optional uint32 project_type = 5;
+  optional string country = 6;
+  optional string name = 7;
+  optional string algorithm = 8;
+  optional string algorithm_2 = 9;
+  optional int64 evaluation_start_time = 10;
+  optional int64 evaluation_end_time = 11;
+  optional uint64 review_imported_project_id = 12;
+  optional int64 review_imported_time = 13;
+  optional string ads_ab_signature = 14;
+  optional uint32 item_mode = 15;
+  optional uint32 item_batch_size = 16;
+  optional bool mark_same_items = 17;
+}

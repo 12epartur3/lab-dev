@@ -2,6 +2,7 @@ package main
 
 import(
 	"fmt"
+	"strings"
 )
 type addr struct {
 	Addr string
@@ -10,22 +11,32 @@ type zkS struct {
 	s []string
 }
 
+func dedupFunc(dup_key []string) ([]string) {
+	appearanceMap := map[string]int{}
+	deDupBlacklistKws := []string{}
+
+	for _, v := range dup_key {
+		appearKey := strings.ToUpper(v)
+		appearanceMap[appearKey] += 1
+		if appearanceMap[appearKey] == 1 {
+			deDupBlacklistKws = append(deDupBlacklistKws, v)
+		}
+	}
+
+	return deDupBlacklistKws
+}
+
 
 func main() {
-	var array []*int
-	fmt.Printf("len(nil) = %d\n", len(array))
-	return
-	zk := &zkS{}
-	//s = s[:0]
-	zk.s = append(zk.s, "123")
-	zk.s = append(zk.s, "456")
-	zk.s = zk.s[:0]
-	fmt.Printf("s = %v\n", zk.s)
-	s :=[...] int {1, 2, 3, 4}
-        s1 := s[1:3]
-        fmt.Printf("s = %v\n", s)
-        fmt.Printf("s1= %v\n", s1)
-	s1[0] = 999
-        fmt.Printf("s = %v\n", s)
-        fmt.Printf("s1= %v\n", s1)
+	var sls []int64
+	sls = append(sls, 1)
+	sls = append(sls, 2)
+	sls = append(sls, 3)
+	fmt.Printf("sls = %v\n", sls)
+	sls = nil
+	fmt.Printf("sls = %v\n", sls)
+	sls = append(sls, 1)
+	sls = append(sls, 2)
+	sls = append(sls, 3)
+	fmt.Printf("sls = %v\n", sls)
 }
